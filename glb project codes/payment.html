@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="main-bg">
+
+<h2>Payment Page</h2>
+
+<input type="text" placeholder="Enter Card Number"><br><br>
+<input type="text" placeholder="Enter CVV"><br><br>
+<button onclick="payNow()">Pay Now</button>
+
+<script>
+function payNow() {
+    alert("Payment Successful! Order Sent to Vendor.");
+    localStorage.clear();
+    window.location.href = "home.html";
+}
+</script>
+
+</body>
+</html>

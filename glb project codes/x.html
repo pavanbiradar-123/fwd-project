@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Local Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --secondary: #f39c12;
+            --danger: #e74c3c;
+            --bg: #f0f2f5;
+            --text: #2c3e50;
+            --white: #ffffff;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            background: var(--bg); 
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* View Management */
+        .view { display: none; padding: 40px 20px; animation: fadeIn 0.4s ease; }
+        .active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Login & Payment Boxes */
+        .glass-card { 
+            background: var(--white); 
+            padding: 40px; 
+            border-radius: 16px; 
+            display: inline-block; 
+            margin-top: 50px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        input { 
+            display: block; width: 90%; padding: 12px; margin: 15px auto; 
+            border: 1px solid #ddd; border-radius: 8px; font-size: 16px;
+        }
+
+        /* Product Grid (4x3 Layout) */
+        .products { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 25px; 
+            max-width: 1200px; 
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card { 
+            background: var(--white); 
+            border-radius: 12px; 
+            padding: 15px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+            transition: transform 0.2s;
+            border: 1px solid #eee;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+        .card h3 { margin: 10px 0 5px; font-size: 18px; }
+        .card p { color: var(--primary-dark); font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; }
+
+        /* Buttons */
+        button, .nav-btn { 
+            background: var(--primary); color: white; border: none; 
+            padding: 12px 24px; border-radius: 8px; cursor: pointer; 
+            font-weight: 600; transition: 0.3s; font-size: 14px;
+        }
+
+        button:hover { background: var(--primary-dark); }
+        .btn-orange { background: var(--secondary); margin-top: 20px; }
+        .btn-danger { background: var(--danger); padding: 5px 10px; font-size: 12px; }
+
+        /* Cart View Styles */
+        .cart-container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 16px; }
+        .cart-item { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid #eee; 
+        }
+        .total-box { font-size: 1.5rem; margin: 25px 0; font-weight: bold; color: var(--text); }
+
+        /* Responsive */
+        @media (max-width: 1024px) { .products { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .products { grid-template-columns: repeat(1, 1fr); } }
+    </style>
+</head>
+<body>
+
+    <div id="loginView" class="view active" style="text-align:center;">
+        <div class="glass-card">
+            <h2 style="color: var(--primary-dark)">Marketplace Login</h2>
+            <p>Welcome back! Please login to start shopping.</p>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="showView('homeView')" style="width: 100%">Enter Shop</button>
+        </div>
+    </div>
+
+    <div id="homeView" class="view">
+        <h1 style="text-align:center;">🌿 Fresh Local Marketplace</h1>
+        <p style="text-align:center;">Quality products delivered from local vendors to your door.</p>
+        
+        <div class="products">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400" alt="Apples">
+                <h3>Fresh Apples</h3><p>₹100 / kg</p>
+                <button onclick="addToCart('Fresh Apples', 100)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="honey.webp" alt="Honey">
+                <h3>Raw Honey</h3><p>₹250</p>
+                <button onclick="addToCart('Raw Honey', 250)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="tea.jpg" alt="Tea">
+                <h3>Assam Tea</h3><p>₹180</p>
+                <button onclick="addToCart('Assam Tea', 180)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="bread.jpg" alt="Bread">
+                <h3>Bread</h3><p>₹60</p>
+                <button onclick="addToCart('Bread', 60)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="pottery.jpg" alt="Pottery">
+                <h3>Clay Pot</h3><p>₹450</p>
+                <button onclick="addToCart('Clay Pot', 450)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="spinach.jpg" alt="Spinach">
+                <h3>Organic Spinach</h3><p>₹40</p>
+                <button onclick="addToCart('Organic Spinach', 40)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="rice.jpg" alt="Rice">
+                <h3>Basmati Rice</h3><p>₹95 / kg</p>
+                <button onclick="addToCart('Basmati Rice', 95)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="spices.jpg" alt="Turmeric">
+                <h3>Chilli Powder</h3><p>₹120</p>
+                <button onclick="addToCart('Chilli Powder', 120)">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="eggs.jpg" alt="Eggs">
+                <h3>Farm Eggs</h3><p>₹80 / Doz</p>
+                <button onclick="addToCart('Farm Eggs', 80)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400" alt="T-Shirt">
+                <h3>Cotton Fabric</h3><p>₹500</p>
+                <button onclick="addToCart('Cotton Fabric', 500)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="tomato.jpg" alt="Tomatoes">
+                <h3>Vine Tomatoes</h3><p>₹55</p>
+                <button onclick="addToCart('Vine Tomatoes', 55)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="milk.jpg" alt="Milk">
+                <h3>Fresh Milk</h3><p>₹65</p>
+                <button onclick="addToCart('Fresh Milk', 65)">Add to Cart</button>
+            </div>
+        </div>
+
+        <div style="text-align:center">
+            <button class="btn-orange" onclick="renderCart()">🛒 View Shopping Cart</button>
+        </div>
+    </div>
+
+    <div id="cartView" class="view">
+        <div class="cart-container">
+            <h2 style="margin-top:0">Shopping Cart</h2>
+            <div id="cartItemsList"></div>
+            <div class="total-box">Total Amount: ₹<span id="cartTotal">0</span></div>
+            
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button onclick="showView('homeView')" style="background:#95a5a6">Continue Shopping</button>
+                <button onclick="showView('paymentView')">Proceed to Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="paymentView" class="view" style="text-align:center;">
+        <div class="glass-card">
+            <h2 style="color: var(--primary-dark)">Checkout</h2>
+            <p>Total Due: ₹<span id="finalAmount">0</span></p>
+            <input type="text" placeholder="Card Number (16 digits)">
+            <input type="text" placeholder="Expiry Date (MM/YY)">
+            <input type="password" placeholder="CVV">
+            <button onclick="processPayment()" style="width: 100%; margin-top:20px">Confirm & Pay</button>
+            <button onclick="showView('cartView')" style="background: none; color: #7f8c8d; width: 100%">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Use localStorage to make data persist even after refresh
+        let cart = JSON.parse(localStorage.getItem('mySmartCart')) || [];
+
+        function showView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo(0,0);
+            
+            // Sync final amount on payment page
+            if(viewId === 'paymentView') {
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                document.getElementById('finalAmount').innerText = total;
+            }
+        }
+
+        function addToCart(name, price) {
+            // Force price to be a Number to fix the "0 MRP" bug
+            cart.push({ name, price: Number(price) });
+            saveCart();
+            alert("Added " + name + " to your basket!");
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveCart();
+            renderCart(); // Refresh the cart view immediately
+        }
+
+        function saveCart() {
+            localStorage.setItem('mySmartCart', JSON.stringify(cart));
+        }
+
+        function renderCart() {
+            const list = document.getElementById('cartItemsList');
+            const totalDisplay = document.getElementById('cartTotal');
+            list.innerHTML = "";
+            let total = 0;
+
+            if (cart.length === 0) {
+                list.innerHTML = "<p style='text-align:center; color:#7f8c8d'>Your cart is empty.</p>";
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    list.innerHTML += `
+                        <div class="cart-item">
+                            <div>
+                                <strong>${item.name}</strong><br>
+                                <span style="color:var(--primary-dark)">₹${item.price}</span>
+                            </div>
+                            <button class="btn-danger" onclick="removeFromCart(${index})">Remove</button>
+                        </div>`;
+                });
+            }
+            totalDisplay.innerText = total;
+            showView('cartView');
+        }
+
+        function processPayment() {
+            if(cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            alert("Success! Your payment was processed. The vendor has been notified.");
+            cart = [];
+            saveCart();
+            showView('homeView');
+        }
+    </script>
+</body>
+</html>
