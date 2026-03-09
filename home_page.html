@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Smart Vendors</title>
+    <style>
+        body.main-bg {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 10px;
+            background: #2c3e50;
+            color: #fff;
+        }
+
+        /* 4 columns, items auto-flow into 3 rows (12 items) */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 equal columns [web:21][web:24] */
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card h3 {
+            margin: 10px 0 5px;
+        }
+
+        .card p {
+            margin: 5px 0 10px;
+        }
+
+        .card button {
+            background: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background: #219150;
+        }
+
+        .footer-nav {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .cart-btn {
+            text-decoration: none;
+            background: #e67e22;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+
+        /* Optional: make it stack on small screens */
+        @media (max-width: 768px) {
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="main-bg">
+
+<header>
+    <h1>Smart Local Vendors Marketplace</h1>
+    <p>Fresh from the farm to your doorstep</p>
+</header>
+
+<div class="products">
+    <div class="card">
+        <img src="apples.jpg" alt="Red Apples">
+        <h3>Fresh Apples</h3>
+        <p>₹100 / kg</p>
+        <button onclick="addToCart('Fresh Apples', 100)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="bread.jpg" alt="Artisan Bread">
+        <h3>Artisan Bread</h3>
+        <p>₹55 / Loaf</p>
+        <button onclick="addToCart('Artisan Bread', 55)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="rice.jpg" alt="Basmati Rice">
+        <h3>Basmati Rice</h3>
+        <p>₹95 / kg</p>
+        <button onclick="addToCart('Basmati Rice', 95)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="spices.jpg" alt="Turmeric Powder">
+        <h3>Organic Turmeric</h3>
+        <p>₹120 / 250g</p>
+        <button onclick="addToCart('Organic Turmeric', 120)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="pottery.jpg" alt="Clay Pot">
+        <h3>Handmade Pot</h3>
+        <p>₹350 / pc</p>
+        <button onclick="addToCart('Handmade Pot', 350)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="spinach.jpg" alt="Spinach">
+        <h3>Fresh Spinach</h3>
+        <p>₹30 / bunch</p>
+        <button onclick="addToCart('Fresh Spinach', 30)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="eggs.jpg" alt="Farm Eggs">
+        <h3>Farm Eggs</h3>
+        <p>₹80 / Dozen</p>
+        <button onclick="addToCart('Farm Eggs', 80)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="nuts.jpg" alt="Mixed Nuts">
+        <h3>Roasted Almonds</h3>
+        <p>₹450 / 250g</p>
+        <button onclick="addToCart('Roasted Almonds', 450)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="tea.jpg" alt="Tea Leaves">
+        <h3>Assam Tea</h3>
+        <p>₹180 / 250g</p>
+        <button onclick="addToCart('Assam Tea', 180)">Add to Cart</button>
+    </div>
+
+    <!-- Add 3 more cards to make 12 total -->
+    <div class="card">
+        <img src="milk.jpg" alt="Fresh Milk">
+        <h3>Fresh Milk</h3>
+        <p>₹60 / Litre</p>
+        <button onclick="addToCart('Fresh Milk', 60)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="tomato.jpg" alt="Tomatoes">
+        <h3>Tomatoes</h3>
+        <p>₹40 / kg</p>
+        <button onclick="addToCart('Tomatoes', 40)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="onion.jpg" alt="Onions">
+        <h3>Onions</h3>
+        <p>₹35 / kg</p>
+        <button onclick="addToCart('Onions', 35)">Add to Cart</button>
+    </div>
+</div>
+
+<div class="footer-nav">
+    <a href="cart.html" class="cart-btn">🛒 View My Cart</a>
+</div>
+
+<script>
+    function addToCart(name, price) {
+        alert(name + " added to cart. Price: ₹" + price);
+    }
+</script>
+</body>
+</html>

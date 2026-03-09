@@ -1,0 +1,200 @@
+import java.util.*;
+
+public class Main {
+
+    static Scanner sc = new Scanner(System.in);
+
+    static int[] productId = new int[100];
+    static String[] productName = new String[100];
+    static double[] productPrice = new double[100];
+    static int count = 0;
+
+    static Queue<Integer> orders = new LinkedList<>();
+
+    public static void main(String[] args) {
+
+        if(login()){
+            menu();
+        } else {
+            System.out.println("Login Failed");
+        }
+    }
+
+    static boolean login(){
+
+        System.out.print("Enter Username: ");
+        String user = sc.next();
+
+        System.out.print("Enter Password: ");
+        String pass = sc.next();
+
+        if(user.equals("admin") && pass.equals("123")){
+            System.out.println("Login Successful\n");
+            return true;
+        }
+
+        return false;
+    }
+
+    static void menu(){
+
+        int choice;
+
+        do{
+
+            System.out.println("1 Add Product");
+            System.out.println("2 View Products");
+            System.out.println("3 Search Product");
+            System.out.println("4 Place Order");
+            System.out.println("5 Process Order");
+            System.out.println("6 Exit");
+
+            System.out.print("Enter Choice: ");
+            choice = sc.nextInt();
+
+
+import java.util.*;
+
+// CO2: Linked List Node
+class Node {
+    int productId;
+    String productName;
+    Node next;
+
+    Node(int id, String name) {
+        productId = id;
+        productName = name;
+        next = null;
+    }
+}
+
+public class Main {
+
+    static Scanner sc = new Scanner(System.in);
+
+    // CO4: HashMap for product storage
+    static HashMap<Integer, String> products = new HashMap<>();
+
+    // CO3: Queue for order processing
+    static Queue<Integer> orders = new LinkedList<>();
+
+    // CO2: Linked List for product list
+    static Node head = null;
+
+    // Add product
+    static void addProduct() {
+        System.out.print("Enter Product ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter Product Name: ");
+        String name = sc.nextLine();
+
+        products.put(id, name);
+
+        Node newNode = new Node(id, name);
+
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null)
+                temp = temp.next;
+            temp.next = newNode;
+        }
+
+        System.out.println("Product Added Successfully\n");
+    }
+
+    // Display products
+    static void displayProducts() {
+        Node temp = head;
+        System.out.println("\nProduct List:");
+
+        while (temp != null) {
+            System.out.println(temp.productId + " - " + temp.productName);
+            temp = temp.next;
+        }
+    }
+
+    // CO1: Linear Search
+    static void searchProduct() {
+        System.out.print("Enter Product ID to Search: ");
+        int id = sc.nextInt();
+
+        if (products.containsKey(id)) {
+            System.out.println("Product Found: " + products.get(id));
+        } else {
+            System.out.println("Product Not Found");
+        }
+    }
+
+    // CO3: Place Order (Queue add)
+    static void placeOrder() {
+        System.out.print("Enter Product ID to Order: ");
+        int id = sc.nextInt();
+
+        if (products.containsKey(id)) {
+            orders.add(id);
+            System.out.println("Order Placed Successfully");
+        } else {
+            System.out.println("Invalid Product ID");
+        }
+    }
+
+    // CO3: Process Order (Queue remove)
+    static void processOrder() {
+        if (orders.isEmpty()) {
+            System.out.println("No Orders to Process");
+        } else {
+            int id = orders.poll();
+            System.out.println("Order Processed for Product: " + products.get(id));
+        }
+    }
+
+    public static void main(String[] args) {
+
+        while (true) {
+
+            System.out.println("\n===== Online Shopping System =====");
+            System.out.println("1. Add Product");
+            System.out.println("2. Display Products");
+            System.out.println("3. Search Product");
+            System.out.println("4. Place Order");
+            System.out.println("5. Process Order");
+            System.out.println("6. Exit");
+
+            System.out.print("Enter Choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    addProduct();
+                    break;
+
+                case 2:
+                    displayProducts();
+                    break;
+
+                case 3:
+                    searchProduct();
+                    break;
+
+                case 4:
+                    placeOrder();
+                    break;
+
+                case 5:
+                    processOrder();
+                    break;
+
+                case 6:
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+        }
+    }
+}

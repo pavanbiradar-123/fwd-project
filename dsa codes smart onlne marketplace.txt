@@ -1,0 +1,162 @@
+import java.util.*;
+
+public class Main {
+
+    static Scanner sc = new Scanner(System.in);
+
+    static int[] productId = new int[100];
+    static String[] productName = new String[100];
+    static double[] productPrice = new double[100];
+    static int count = 0;
+
+    static Queue<Integer> orders = new LinkedList<>();
+
+    public static void main(String[] args) {
+
+        if(login()){
+            menu();
+        } else {
+            System.out.println("Login Failed");
+        }
+    }
+
+    static boolean login(){
+
+        System.out.print("Enter Username: ");
+        String user = sc.next();
+
+        System.out.print("Enter Password: ");
+        String pass = sc.next();
+
+        if(user.equals("admin") && pass.equals("123")){
+            System.out.println("Login Successful\n");
+            return true;
+        }
+
+        return false;
+    }
+
+    static void menu(){
+
+        int choice;
+
+        do{
+
+            System.out.println("1 Add Product");
+            System.out.println("2 View Products");
+            System.out.println("3 Search Product");
+            System.out.println("4 Place Order");
+            System.out.println("5 Process Order");
+            System.out.println("6 Exit");
+
+            System.out.print("Enter Choice: ");
+            choice = sc.nextInt();
+
+            switch(choice){
+
+                case 1:
+                    addProduct();
+                    break;
+
+                case 2:
+                    viewProducts();
+                    break;
+
+                case 3:
+                    searchProduct();
+                    break;
+
+                case 4:
+                    placeOrder();
+                    break;
+
+                case 5:
+                    processOrder();
+                    break;
+
+                case 6:
+                    System.out.println("Exiting...");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while(choice != 6);
+
+    }
+
+    static void addProduct(){
+
+        System.out.print("Enter Product ID: ");
+        productId[count] = sc.nextInt();
+
+        System.out.print("Enter Product Name: ");
+        productName[count] = sc.next();
+
+        System.out.print("Enter Price: ");
+        productPrice[count] = sc.nextDouble();
+
+        count++;
+
+        System.out.println("Product Added\n");
+    }
+
+    static void viewProducts(){
+
+        if(count == 0){
+            System.out.println("No Products Available\n");
+            return;
+        }
+
+        for(int i=0;i<count;i++){
+            System.out.println(productId[i]+" "+productName[i]+" "+productPrice[i]);
+        }
+
+        System.out.println();
+    }
+
+    static void searchProduct(){
+
+        System.out.print("Enter Product Name: ");
+        String name = sc.next();
+
+        for(int i=0;i<count;i++){
+
+            if(productName[i].equalsIgnoreCase(name)){
+                System.out.println("Found: "+productId[i]+" "+productName[i]+" "+productPrice[i]);
+                return;
+            }
+        }
+
+        System.out.println("Product Not Found\n");
+    }
+
+    static void placeOrder(){
+
+        System.out.print("Enter Product ID to Order: ");
+        int id = sc.nextInt();
+
+        orders.add(id);
+
+        System.out.println("Order Placed\n");
+    }
+
+    static void processOrder(){
+
+        if(orders.isEmpty()){
+            System.out.println("No Orders\n");
+        } else {
+
+            int id = orders.poll();
+
+            for(int i=0;i<count;i++){
+
+                if(productId[i]==id){
+                    System.out.println("Processing Order: "+productName[i]);
+                    return;
+                }
+            }
+        }
+    }
+}
